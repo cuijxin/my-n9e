@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/cuijxin/my-n9e/models"
+	"github.com/cuijxin/my-n9e/pkg/i18n"
 	"github.com/cuijxin/my-n9e/pkg/iconf"
 	"github.com/cuijxin/my-n9e/pkg/ilog"
 	"github.com/ory/viper"
@@ -15,6 +16,7 @@ type ConfigStruct struct {
 	Logger ilog.Config         `yaml:"logger"`
 	HTTP   httpSection         `yaml:"http"`
 	MySQL  models.MysqlSection `yaml:"mysql"`
+	I18N   i18n.Config         `yaml:"i18n"`
 }
 
 type httpSection struct {
@@ -49,6 +51,8 @@ func Parse() error {
 	if err != nil {
 		return fmt.Errorf("cannot read yml[%s]: %v", ymlFile, err)
 	}
+
+	viper.SetDefault("i18n.lang", "zh")
 
 	err = viper.Unmarshal(&Config)
 	if err != nil {

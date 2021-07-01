@@ -10,6 +10,7 @@ import (
 
 	"github.com/cuijxin/my-n9e/config"
 	"github.com/cuijxin/my-n9e/models"
+	"github.com/cuijxin/my-n9e/pkg/i18n"
 	"github.com/cuijxin/my-n9e/pkg/ilog"
 	"github.com/toolkits/pkg/logger"
 	"github.com/toolkits/pkg/runner"
@@ -50,6 +51,7 @@ func main() {
 	parseConf()
 
 	ilog.Init(config.Config.Logger)
+	i18n.Init(config.Config.I18N)
 
 	models.InitMySQL(config.Config.MySQL)
 
