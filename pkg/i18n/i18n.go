@@ -38,6 +38,8 @@ func Init(configs ...Config) {
 	if config.DictPath == "" {
 		config.DictPath = defaultConfig.DictPath
 	}
+	DictFileRegister(config.DictPath)
+	p = message.NewPrinter(langTag(config.Lang))
 }
 
 func DictFileRegister(filePath string) {

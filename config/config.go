@@ -15,6 +15,7 @@ import (
 type ConfigStruct struct {
 	Logger ilog.Config         `yaml:"logger"`
 	HTTP   httpSection         `yaml:"http"`
+	LDAP   models.LdapSection  `yaml:"ldap"`
 	MySQL  models.MysqlSection `yaml:"mysql"`
 	I18N   i18n.Config         `yaml:"i18n"`
 }
