@@ -35,6 +35,7 @@ func configRoutes(r *gin.Engine) {
 			c.String(200, c.Request.RemoteAddr)
 		})
 		guest.POST("/auth/login", loginPost)
+		guest.GET("/auth/logout", logoutGet)
 	}
 
 	// for brower, expose location in nginx.conf
@@ -43,5 +44,20 @@ func configRoutes(r *gin.Engine) {
 		pages.GET("/csrf", func(c *gin.Context) {
 			renderData(c, csrf.GetToken(c), nil)
 		})
+
+		pages.GET("/roles", rolesGet)
+		pages.GET("/self/profile", selfProfileGet)
+		pages.PUT("/self/profile", selfProfilePut)
+		pages.PUT("/self/password", selfPasswordPut)
+		pages.GET("/self/token", selfTokenGets)
+		pages.POST("/self/token", selfTokenPost)
+		pages.PUT("/self/token", selfTokenPut)
+
+		pages.GET("/users", login(), userGets)
+		pages.POST("/users", admin(), userAddPost)
+		pages.GET("/user/:id/profile", login(), userProfileGet)
+		pages.PUT("/user/:id/profile", admin(), userProfilePut)
+		pages.PUT("/user/:id/status", admin(), userStatusPut)
+		pages.PUT("/user/:id/password", admin(), userPasswordPut)
 	}
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/toolkits/pkg/logger"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -43,5 +44,14 @@ func InitMySQL(MySQL MysqlSection) {
 	sqlDB.SetMaxOpenConns(conf.Max)
 
 	DB = db
+}
 
+func DBInsertOne(bean interface{}) error {
+	err := DB.Create(bean).Error
+	if err != nil {
+		logger.Errorf("mysql.error: insert fail: %v, to insert object: %+v", err, bean)
+		return internalServerError
+	}
+
+	return nil
 }

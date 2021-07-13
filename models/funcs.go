@@ -5,6 +5,7 @@ import (
 
 	"github.com/cuijxin/my-n9e/pkg/i18n"
 	"github.com/toolkits/pkg/str"
+	"gorm.io/gorm"
 )
 
 var (
@@ -33,4 +34,26 @@ func CryptoPass(raw string) (string, error) {
 	}
 
 	return str.MD5(salt + "<-*Uk30^96eY*->" + raw), nil
+}
+
+func Paginate(p, limit int) func(db *gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		// page, _ := strconv.Atoi(c.Query("p"))
+		var page, pageSize int
+		if p == 0 {
+			page = 1
+		}
+
+		// pageSize, _ := strconv.Atoi(c.Query("limit"))
+		pageSize = limit
+		switch {
+		case pageSize > 100:
+			pageSize = 100
+		case pageSize <= 0:
+			pageSize = 10
+		}
+
+		offset := (page - 1) * pageSize
+		return db.Offset(offset).Limit(pageSize)
+	}
 }

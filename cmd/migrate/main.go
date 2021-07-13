@@ -17,6 +17,10 @@ func main() {
 	if err := models.DB.AutoMigrate(
 		new(models.User),
 		new(models.Configs),
+		new(models.Role),
+		new(models.UserToken),
+		new(models.UserGroup),
+		new(models.UserGroupMember),
 	); err != nil {
 		fmt.Printf("database auto migrate failed: %v", err)
 		os.Exit(1)

@@ -57,6 +57,7 @@ func main() {
 	models.InitMySQL(config.Config.MySQL)
 	models.InitLdap(config.Config.LDAP)
 	models.InitSalt()
+	models.InitRoot()
 	models.InitError()
 
 	_, cancelFunc := context.WithCancel(context.Background())

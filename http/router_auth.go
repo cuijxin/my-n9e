@@ -33,3 +33,10 @@ func loginPost(c *gin.Context) {
 	// password and ldap both fail
 	renderMessage(c, err1)
 }
+
+func logoutGet(c *gin.Context) {
+	session := sessions.Default(c)
+	session.Set("username", "")
+	session.Save()
+	renderMessage(c, nil)
+}
